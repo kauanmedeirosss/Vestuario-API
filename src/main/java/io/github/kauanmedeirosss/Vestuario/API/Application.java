@@ -11,5 +11,3 @@ public class Application {
 	}
 
 }
-
-// commit inicial do projeto com hello world usado para teste
