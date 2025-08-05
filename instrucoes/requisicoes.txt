@@ -1,0 +1,10 @@
+VESTIMENTA (POST):
+{
+	"nome":"Shorts Casual Estampada Conquista Eterna Masculina",
+	"cor":"preto",
+	"tamanho":"P",
+	"tipo":"SHORT",
+	"loja":"Fashion Icon Clothing",
+	"preco":82.99
+}
+
