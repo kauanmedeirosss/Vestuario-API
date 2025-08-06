@@ -1,2 +1,5 @@
+// esses são os comandos de criação e uso do banco
 CREATE DATABASE vestuario_api
 USE vestuario_api
+
+// criação de tabela será via flyway
