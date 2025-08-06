@@ -1,0 +1,2 @@
+CREATE DATABASE vestuario_api
+USE vestuario_api
