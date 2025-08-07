@@ -3,6 +3,7 @@ package io.github.kauanmedeirosss.Vestuario.API.controller;
 import io.github.kauanmedeirosss.Vestuario.API.controller.dto.CadastroVestimentaDTO;
 import io.github.kauanmedeirosss.Vestuario.API.model.Vestimenta;
 import io.github.kauanmedeirosss.Vestuario.API.repository.VestimentaRepository;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ public class VestimentaController {
     private VestimentaRepository repository;
 
     @PostMapping
-    public void cadastrar(@RequestBody CadastroVestimentaDTO dto){
+    public void cadastrar(@RequestBody @Valid CadastroVestimentaDTO dto){
         repository.save(new Vestimenta(dto));
     }
 

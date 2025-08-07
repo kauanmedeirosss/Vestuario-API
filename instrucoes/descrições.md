@@ -35,7 +35,14 @@ Não foi feito um service, o repository está sendo injetado diretamente no cont
 
 ## 2.3 DTO
 * CadastroVestimentaDTO: recebe todos os dados com exceção do Id.  
-  Seu mapeamento foi feito via construtor presente na própria entidade Vestimenta
+  Seu mapeamento foi feito via construtor presente na própria entidade Vestimenta  
+  Está de acordo com regras de negócio usando validation
+
+## 2.4 Controller
+* Está injetando o repository via autowired
+* Seu método POST conta com parâmetro de recebimento marcado com @Valid para passar por verificação usando validation
 
 # 3. Migrations
-Para realizar ações no banco de dados será usado o Flyway
+Para realizar controle do banco de dados será usado o Flyway, ferramenta de versionamento de banco de dados.  
+O flyway precisa estar em um diretório específico, ele está em src/main/resources/db/migration  
+* OBS: a estrutura do arquivo flyway é sempre a mesma V1 (v de versão e 1 é apenas um exemplo), 2 underscores (__) e o nome do comando que será executado
