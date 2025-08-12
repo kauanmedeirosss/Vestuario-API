@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 
-public record CadastroVestimentaDTO(
+public record CadastrarVestimentaDTO(
         @NotBlank(message = "Campo obrigatório!")
         String nome,
         @NotBlank(message = "Campo obrigatório!")

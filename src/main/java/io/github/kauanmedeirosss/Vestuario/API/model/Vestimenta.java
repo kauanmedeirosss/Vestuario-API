@@ -1,9 +1,11 @@
 package io.github.kauanmedeirosss.Vestuario.API.model;
 
-import io.github.kauanmedeirosss.Vestuario.API.controller.dto.CadastroVestimentaDTO;
+import io.github.kauanmedeirosss.Vestuario.API.controller.dto.AtualizarVestimentaDTO;
+import io.github.kauanmedeirosss.Vestuario.API.controller.dto.CadastrarVestimentaDTO;
 import io.github.kauanmedeirosss.Vestuario.API.model.enums.Tamanho;
 import io.github.kauanmedeirosss.Vestuario.API.model.enums.Tipo;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.*;
 
 @Entity(name = "vestimenta")
@@ -15,7 +17,7 @@ import lombok.*;
 @EqualsAndHashCode(of = "id")
 public class Vestimenta {
 
-    public Vestimenta(CadastroVestimentaDTO dto){
+    public Vestimenta(CadastrarVestimentaDTO dto){
         this.nome = dto.nome();
         this.cor = dto.cor();
         this.tamanho = dto.tamanho();
@@ -41,5 +43,14 @@ public class Vestimenta {
     private String loja;
 
     private Double preco;
+
+    public void atualizarInformacoes(@Valid AtualizarVestimentaDTO dto){
+        if(dto.tamanho() != null){
+            this.tamanho = dto.tamanho();
+        }
+        if(dto.preco() != null){
+            this.preco = dto.preco();
+        }
+    }
 
 }

@@ -8,3 +8,29 @@ VESTIMENTA (POST):
 	"preco":82.99
 }
 
+{
+    "nome":"Camisa de manga longa com botões, babados e cor sólida",
+    "cor":"preto",
+    "tamanho":"P",
+   	"tipo":"CAMISA",
+   	"loja":"ROMWE MEN",
+   	"preco":117.99
+}
+
+{
+    "nome":"Calças de Carga com Cintura Solta Utilitária de Rua Bordada, Multifuncional com Cordão Removível",
+    "cor":"preto",
+    "tamanho":"P",
+   	"tipo":"CALCA",
+   	"loja":"Rieti",
+   	"preco":251.00
+}
+
+{
+    "nome":"Camisa polo de malha de manga curta casual com botões na frente, estampa de retalhos e cor sólida para homens",
+    "cor":"branco",
+    "tamanho":"P",
+   	"tipo":"CAMISETA",
+   	"loja":"SWAVVY",
+   	"preco":100.90
+}
