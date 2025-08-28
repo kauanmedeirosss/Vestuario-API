@@ -31,7 +31,8 @@ Temos a entidade Vestimenta que tem:
   - @Enumerated especificando que o enum é tipo String
 
 ## 2.2 Repository
-Não foi feito um service, o repository está sendo injetado diretamente no controller via @Autowired
+Responsável por integrar métodos de manipulação de dados com nosso controller.
+* OBS: Não foi feito um service, o repository está sendo injetado diretamente no controller via @Autowired
 
 ## 2.3 DTO
 * CadastrarVestimentaDTO: recebe todos os dados com exceção do Id  
@@ -48,6 +49,12 @@ Não foi feito um service, o repository está sendo injetado diretamente no cont
 * Está injetando o repository via autowired
 * Seus métodos POST e PUT contam com parâmetro de recebimento marcado com @Valid para passar por verificação usando validation
 * Conta com @Transactional, que reverte uma transação em caso de erro, evitando perdas de dados (apenas para métodos que alteram dados)
+* Padroniza códigos de resposta com ResponseEntity em suas requisições
+
+## 2.5 Tratador de Erros
+No caminho src/main/.../controller/common temos o tratador de erros que, é um advice do controller a captura erros como not found e bad request.
+* Not Found: Mais simples, apenas retorna o código de erro sem corpo algum.
+* Bad Request: Retorna código de erro e especifica os erros capturados, que, por sua vez, são aquelas mensagens tratadas atravez do Valid presente nos DTO's.
 
 # 3. Migrations
 Para realizar controle do banco de dados será usado o Flyway, ferramenta de versionamento de banco de dados.  
@@ -59,7 +66,7 @@ Criou a tabela 'vestimentas', bem como suas colunas e definição de sua chave p
 ### 3.2 V2
 Adição da coluna 'ativa' na table vestimentas, para fins de implementação da exclusão lógica. Foi também definido que todos estão ativos, para iniciar o atributo sem erros.
 
-# 4. Funcionalidades
+# 4. Funcionalidades e Recursos
 ## 4.1 CRUD
 * (C)reate: Cria/Cadastra uma vestimenta.
   - POST
@@ -119,3 +126,13 @@ Pensando nisso existem 2 tipos de exclusão:
   - GET
   - Response sucesso: 200 OK
   - http://localhost:8080/vestimentas/{id}
+
+# 5. Propriedades
+No caminho src/main/resources se encontra o arquivo 'application.properties' que dita algumas configurações da aplicação.  
+Nele temos definido (em ordem de linhas):
+* Nome da aplicação
+* Url da database
+* Usuário da database
+* Senha da database
+* Comando que desativa exibição do stacktrace (que estava sendo exibido no insomnia em casos de erro).
+  - Motivação: exibia dados sensíveis como classes do sistema.
