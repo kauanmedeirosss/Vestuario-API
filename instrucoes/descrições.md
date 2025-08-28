@@ -41,6 +41,8 @@ Não foi feito um service, o repository está sendo injetado diretamente no cont
   Seu mapeamento foi feito via construtor presente na própria classe do DTO  
 * AtualizarVestimentaDTO: recebe apenas alguns dados, pensando na regra de négocio, id é obrigatório para identificar, já o preço é em caso de desconto, enquanto o tamanho é em caso de troca  
   Seu mapeamento foi feito através de um método na entidade Vestimenta, o método verifica se os dados a serem alterados estão presentes
+* DetalhamentoVestimentaDTO: retorna todos os dados de vestimenta, é um detalhamento completo  
+  Seu mapeamento foi feito via construtor presente na própria classe do DTO
 
 ## 2.4 Controller
 * Está injetando o repository via autowired
@@ -61,6 +63,7 @@ Adição da coluna 'ativa' na table vestimentas, para fins de implementação da
 ## 4.1 CRUD
 * (C)reate: Cria/Cadastra uma vestimenta.
   - POST
+  - Response sucesso: 201 Created
   - http://localhost:8080/vestimentas
   - Exemplo de body (JSON):
     ````JSON
@@ -73,12 +76,13 @@ Adição da coluna 'ativa' na table vestimentas, para fins de implementação da
       "preco":82.99
     }
     ````
-* (R)ead: Lista vestimentas e pode, também, pesquisar vestimenta específica por id. Por regra de negócio, chama apenas vestimentas que constam como ativas (atributo ativa = true).
+* (R)ead: Lista vestimentas. Por regra de negócio, chama apenas vestimentas que constam como ativas (atributo ativa = true).
   - GET
+  - Response sucesso: 200 OK
   - http://localhost:8080/vestimentas
-  - http://localhost:8080/vestimentas/{id}
 * (U)pdate: Atualiza apenas tamanho (em caso de troca) e preço (em caso de desconto), ambos são opcionais, podendo a requisição ter apenas um ou ambos.
   - PUT
+  - Response sucesso: 200 OK
   - http://localhost:8080/vestimentas
   - Exemplo de body (JSON): 
     ````JSON
@@ -89,6 +93,7 @@ Adição da coluna 'ativa' na table vestimentas, para fins de implementação da
     ````
 * (D)elete: Deleta vestimenta por id.
   - DELETE
+  - Response sucesso: 204 No Content
   - http://localhost:8080/vestimentas/{id}
 
 ## 4.2 Delete e Exclusão Lógica
@@ -102,8 +107,15 @@ Pensando nisso existem 2 tipos de exclusão:
 ## 4.3 Outras Requisições
 * Inativar: Exclusão lógica de uma vestimenta. Troca seu status 'ativa' para false, que influencia na sua aparição em pesquisas.
   - DELETE
+  - Response sucesso: 204 No Content
   - http://localhost:8080/vestimentas/inativar/{id}
 
 * Ativar: Desfaz a exclusão lógica de uma vestimenta. Troca seu status 'ativa' para true, que influencia na sua aparição em pesquisas.
   - PUT
+  - Response sucesso: 204 No Content
   - http://localhost:8080/vestimentas/ativar/{id}
+
+* Buscar: Retorna o detalhamento de uma vestimenta por id.
+  - GET
+  - Response sucesso: 200 OK
+  - http://localhost:8080/vestimentas/{id}
