@@ -52,9 +52,15 @@ Para realizar controle do banco de dados será usado o Flyway, ferramenta de ver
 O flyway precisa estar em um diretório específico, ele está em src/main/resources/db/migration  
 * OBS: a estrutura do arquivo flyway é sempre a mesma V1 (v de versão e 1 é apenas um exemplo), 2 underscores (__) e o nome do comando que será executado
 
+### 3.1 V1
+Criou a tabela 'vestimentas', bem como suas colunas e definição de sua chave primária.
+### 3.2 V2
+Adição da coluna 'ativa' na table vestimentas, para fins de implementação da exclusão lógica. Foi também definido que todos estão ativos, para iniciar o atributo sem erros.
+
 # 4. Funcionalidades
 ## 4.1 CRUD
 * (C)reate: Cria/Cadastra uma vestimenta.
+  - POST
   - http://localhost:8080/vestimentas
   - Exemplo de body (JSON):
     ````JSON
@@ -67,10 +73,12 @@ O flyway precisa estar em um diretório específico, ele está em src/main/resou
       "preco":82.99
     }
     ````
-* (R)ead: Lista vestimentas e pode, também, pesquisar vestimenta específica por id.
+* (R)ead: Lista vestimentas e pode, também, pesquisar vestimenta específica por id. Por regra de negócio, chama apenas vestimentas que constam como ativas (atributo ativa = true).
+  - GET
   - http://localhost:8080/vestimentas
   - http://localhost:8080/vestimentas/{id}
 * (U)pdate: Atualiza apenas tamanho (em caso de troca) e preço (em caso de desconto), ambos são opcionais, podendo a requisição ter apenas um ou ambos.
+  - PUT
   - http://localhost:8080/vestimentas
   - Exemplo de body (JSON): 
     ````JSON
@@ -79,6 +87,23 @@ O flyway precisa estar em um diretório específico, ele está em src/main/resou
 	     "tamanho":"PP"
     }
     ````
-* (D)elete:
+* (D)elete: Deleta vestimenta por id.
+  - DELETE
+  - http://localhost:8080/vestimentas/{id}
 
 ## 4.2 Delete e Exclusão Lógica
+Quando se deleta um arquivo em bancos relacionais, uma tabela pode ter ligação com outra tabela (ex: um produto ter ligação com um cliente), quando se tem esse tipo de relacionamento e tentamos deletar algo que está linkado a outro, temos um erro de constraint.  
+Pensando nisso existem 2 tipos de exclusão:
+* Exclusão de fato: vai apagar o registro completamente do banco de dados.
+  - Representado no projeto pelo DELETE por id do nosso CRUD.
+* Exclusão lógica: exclusão na qual implementamos um atributo "ativo" do tipo boolean, onde true indica que poderemos acessar o mesmo e false indica que não será acessado (ele existirá no sistema mas não dará resultados).
+  - Representado no projeto pelo atributo boolean 'ativo', presente no model 'vestimenta'. Está também presente como a requisição 'Inativar'
+
+## 4.3 Outras Requisições
+* Inativar: Exclusão lógica de uma vestimenta. Troca seu status 'ativa' para false, que influencia na sua aparição em pesquisas.
+  - DELETE
+  - http://localhost:8080/vestimentas/inativar/{id}
+
+* Ativar: Desfaz a exclusão lógica de uma vestimenta. Troca seu status 'ativa' para true, que influencia na sua aparição em pesquisas.
+  - PUT
+  - http://localhost:8080/vestimentas/ativar/{id}

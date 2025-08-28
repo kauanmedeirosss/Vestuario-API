@@ -27,7 +27,7 @@ public class VestimentaController {
 
     @GetMapping
     public List<RetornarVestimentaDTO> listar(){
-        return repository.findAll().stream().map(RetornarVestimentaDTO::new).toList();
+        return repository.findAllByAtivaTrue().stream().map(RetornarVestimentaDTO::new).toList();
     }
 
     @PutMapping
@@ -37,9 +37,24 @@ public class VestimentaController {
         vest.atualizarInformacoes(dto);
     }
 
-    /*
-    @DeleteMapping
-    public
-    */
-    
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void deletar(@PathVariable Long id){
+        repository.deleteById(id);
+    }
+
+    @DeleteMapping("inativar/{id}")
+    @Transactional
+    public void inativar(@PathVariable Long id){
+        var vest = repository.getReferenceById(id);
+        vest.inativar();
+    }
+
+    @PutMapping("ativar/{id}")
+    @Transactional
+    public void ativar(@PathVariable Long id){
+        var vest = repository.getReferenceById(id);
+        vest.ativar();
+    }
+
 }

@@ -24,6 +24,7 @@ public class Vestimenta {
         this.tipo = dto.tipo();
         this.loja = dto.loja();
         this.preco = dto.preco();
+        this.ativa = true;
     }
 
     @Id
@@ -44,6 +45,8 @@ public class Vestimenta {
 
     private Double preco;
 
+    private Boolean ativa;
+
     public void atualizarInformacoes(@Valid AtualizarVestimentaDTO dto){
         if(dto.tamanho() != null){
             this.tamanho = dto.tamanho();
@@ -51,6 +54,14 @@ public class Vestimenta {
         if(dto.preco() != null){
             this.preco = dto.preco();
         }
+    }
+
+    public void inativar(){
+        this.ativa = false;
+    }
+
+    public void ativar(){
+        this.ativa = true;
     }
 
 }
